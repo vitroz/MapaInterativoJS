@@ -181,6 +181,7 @@
           }
             document.getElementById("dadosLojas").innerHTML = '';
             for(var i = 0; i < 2 ; i ++){ //Para fins de demonstracao, so existem duas lojas em cada unidade
+              document.getElementById("estado").innerHTML = dicEstados[message];
               document.getElementById("dadosLojas").innerHTML += 
               '<br>Unidade: ' + 
               unidades[dicEstados[message]][i]['Loja'] + 
