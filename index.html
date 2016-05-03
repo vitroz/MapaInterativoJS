@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Mapa Interativo JS</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-6"> 
+        <div id="regions_div" style="width: 900px; height: 500px;"></div>
+      </div>
+        <div class="col-md-6 feature">
+          <h4 style="color:#00689D">Selecione uma de nossas <br><b style="color:#00689D">130 unidades</b>, e solicite um</h3>
+          <p><b style="background-color:#00689D;color:white;font-size:1.5em">Orçamento</b></p><br>
+          <h4>Unidades em <span id="estado"></span>:<h4>
+          <div id="dadosLojas" style="overflow-y: scroll; height:200px;"> 
+
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="js/jsapi.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+
+      function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Country'],
+          ['Brazil'],
+          ['Acre'],
+          ['Alagoas'],
+          ['Amapa'],
+          ['Amazonas'],
+          ['Bahia'],
+          ['Ceara'],
+          ['Distrito Federal'],
+          ['Espirito Santo'],
+          ['Goias'],
+          ['Maranhao'],
+          ['Mato Grosso'],
+          ['Mato Grosso do Sul'],
+          ['Minas Gerais'],
+          ['Para'],
+          ['Paraiba'],
+          ['Parana'],
+          ['Pernambuco'],
+          ['Piaui'],
+          ['Rio de Janeiro'],
+          ['Rio Grande do Norte'],
+          ['Rio Grande do Sul'],
+          ['Rondonia'],
+          ['Roraima'],
+          ['Santa Catarina'],
+          ['Sao Paulo'],
+          ['Sergipe'],
+          ['Tocantins']
+        ]);
+
+        var options = {
+           region: 'BR',
+           resolution: 'provinces',
+           datalessRegionColor: 'white',
+           defaultColor: '#F1F2F3',
+           enableRegionInteractivity: true
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        dicEstados = {
+          '1' : 'Acre',
+          '2' : 'Alagoas',
+          '3' : 'Amapa',
+          '4' : 'Amazonas',
+          '5' : 'Bahia',
+          '6' : 'Ceara',
+          '7' : 'Distrito Federal',
+          '8' : 'Espirito Santo',
+          '9' : 'Goias',
+          '10' : 'Maranhao',
+          '11' : 'Mato Grosso',
+          '12' : 'Mato Grosso do Sul',
+          '13' : 'Minas Gerais',
+          '14' : 'Para',
+          '15' : 'Paraiba',
+          '16' : 'Parana',
+          '17' : 'Pernambuco',
+          '18' : 'Piaui',
+          '19' : 'Rio de Janeiro',
+          '20' : 'Rio Grande do Norte',
+          '21' : 'Rio Grande do Sul',
+          '22' : 'Rondonia',
+          '23' : 'Roraima',
+          '24' : 'Santa Catarina',
+          '25' : 'Sao Paulo',
+          '26' : 'Sergipe',
+          '27' : 'Tocantins'
+        }
+
+        unidades = {
+          'Acre': 
+          {
+            '0' : 
+            {
+              'Loja' : 'IT-Milano',
+              'Fone' : '',
+              'Endereco' : ''
+            }, '1' :
+            {
+              'Loja' : '*PT-Lisboa Centro',
+              'Fone' : '0000-0000',
+              'Endereco' : 'Praça Doutor Teixeira Aragão 4 2D'
+            }
+          },
+          'Maranhao':
+           {
+            '0' : 
+            {
+              'Loja' : 'Sao Luis Centro',
+              'Fone' : '',
+              'Endereco' : ''
+            }, '1' :
+            {
+              'Loja' : 'Renascenca',
+              'Fone' : '0000-0000',
+              'Endereco' : 'Renascenca 2 Rua 7'
+            }
+          },
+          'Sao Paulo':
+           {
+            '0' : 
+            {
+              'Loja' : 'Araçatuba',
+              'Fone' : '18 3117 7471',
+              'Endereco' : 'Acesse o site'
+            }, '1' :
+            {
+              'Loja' : 'Bauru',
+              'Fone' : '(14) 3014-9181',
+              'Endereco' : ''
+            }
+          },
+          'Bahia':
+           {
+            '0' : 
+            {
+              'Loja' : 'Feira de Santana',
+              'Fone' : '71 3488-6577',
+              'Endereco' : 'Rua Senador Theotonio Vilela, 110'
+            }, '1' :
+            {
+              'Loja' : 'Ilheus',
+              'Fone' : '0000-0000',
+              'Endereco' : 'Rua Duque de Caxias, 465, sala 01, 02 e 03'
+            }
+          }
+        }
+
+        function myClickHandler(){
+          var selection = chart.getSelection();
+          var message = '';
+          for (var i = 0; i < selection.length; i++) {
+              var item = selection[i];
+              if (item.row != null && item.column != null) {
+                  message += '{' + item.row + ',column:' + item.column + '}';
+              } else if (item.row != null) {
+                  message += '' + item.row + '';
+              } else if (item.column != null) {
+                  message += '{column:' + item.column + '}';
+              }
+          }
+          if (message == '') {
+              message = 'nothing';
+          }
+            document.getElementById("dadosLojas").innerHTML = '';
+            for(var i = 0; i < 2 ; i ++){ //Para fins de demonstracao, so existem duas lojas em cada unidade
+              document.getElementById("dadosLojas").innerHTML += 
+              '<br>Unidade: ' + 
+              unidades[dicEstados[message]][i]['Loja'] + 
+              '<br>Fone: ' + 
+              unidades[dicEstados[message]][i]['Fone'] + 
+              '<br>Endereco: ' 
+              + unidades[dicEstados[message]][i]['Endereco'] + '<br>';
+            }
+          }
+
+          google.visualization.events.addListener(chart, 'select', myClickHandler);
+
+          chart.draw(data, options);
+      }
+    </script>
