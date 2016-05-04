@@ -9,6 +9,10 @@ body {
   line-height: 1.5;
   color: #606c71; }
 
+.feature{
+  margin-left: 100px !important;
+}
+
 a {
   color: #1e6bb8;
   text-decoration: none; }
@@ -205,8 +209,7 @@ a {
 
 @media screen and (min-width: 64em) {
   .main-content {
-    max-width: 64rem;
-    padding: 2rem 6rem;
+    padding: 1rem 3rem;
     margin: 0 auto;
     font-size: 1.1rem; } }
 
