@@ -224,7 +224,7 @@
             for(var i = 0; i < Object.keys(unidades).length; i ++){ 
               document.getElementById("estado").innerHTML = dicEstados[message];
               //Ponto de melhoria, percorrer o array apenas nos itens relacionados ao estado clicado/marcado. (lazy)
-              if(unidades[dicEstados[message]] != undefined){
+              if(unidades[dicEstados[message]][i] != undefined){
                 document.getElementById("dadosLojas").innerHTML += 
                 '<br>Unidade: ' + 
                 unidades[dicEstados[message]][i]['Loja'] + 
